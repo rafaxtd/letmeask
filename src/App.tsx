@@ -1,69 +1,40 @@
-import firebase from 'firebase';
-import { createContext, useState } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+
+// import { ScreenProvider } from 'responsive-native';
+// import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { Home } from './pages/Home';
 import { NewRoom } from './pages/NewRoom';
-import { auth } from './services/firebase';
+import { Room } from './pages/Room';
+import { AdminRoom } from './pages/AdminRoom';
 
-type User = {
-  id: string;
-  name: string;
-  avatar: string;
-}
-
-type AuthContextType = {
-  user: User | undefined;
-  signInWithGoogle: () => Promise<void>;
-}
-
-export const AuthContext = createContext({} as AuthContextType)
+import { AuthContextProvider } from './contexts/AuthContext'
 
 
-function App() {
 
-  const [user, setUser] = useState<User>();
+export default function App() {
 
-
-  async function signInWithGoogle() {
-
-    
-    const provider = new firebase.auth.GoogleAuthProvider();
-
-    const result = await auth.signInWithPopup(provider);
-
-    if(result.user) {
-
-        const { displayName, photoURL, uid} = result.user;
-
-        if (!displayName || !photoURL) {
-          throw new Error('Missing information from Google Account');
-        }
-
-        setUser({
-          id: uid,
-          name: displayName,
-          avatar: photoURL
-        })
-      }
-    
-
-    
-  }
 
   return (
 
+    
     <BrowserRouter>
+      <AuthContextProvider>
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/rooms/new" component={NewRoom} />
+            <Route path="/rooms/:id"  component={Room} />
 
-      <AuthContext.Provider value={{ user, signInWithGoogle }}>
-        <Route path="/" exact component={Home} />
-        <Route path="/rooms/new" component={NewRoom} />
-        </AuthContext.Provider>
+            <Route path="/admin/rooms/:id" component={AdminRoom} />
 
+
+          </Switch>
+        </AuthContextProvider>
     </BrowserRouter>
+  
    
     
   );
 }
 
-export default App;
+

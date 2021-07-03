@@ -1,7 +1,7 @@
 import { useHistory } from 'react-router-dom';
-
-import { useContext } from 'react';
-import { AuthContext } from '../App';
+import { useAuth } from '../hooks/useAuths';
+import { database } from '../services/firebase';
+import { FormEvent, useState } from 'react';
 
 import illustrationImg from '../assets/images/illustration.svg';
 import logoImg from '../assets/images/logo.svg';
@@ -9,19 +9,19 @@ import googleIconImg from '../assets/images/google-icon.svg';
 
 import { Button } from '../components/Button';
 
-
 import '../styles/auth.scss';
-
 
 export function Home() {
 
     const history = useHistory();
-    const { user, signInWithGoogle  } = useContext(AuthContext)
+    const { user, signInWithGoogle  } = useAuth();
+    const [roomCode, setRoomCode] = useState('');
 
     
    async function handleCreateRoom() {
 
         if(!user) {
+            
            await signInWithGoogle();
         }
 
@@ -30,15 +30,41 @@ export function Home() {
 
     }
 
-    
+    async function handleJoinRoom(event: FormEvent) {
 
+        event.preventDefault();
+
+        if (roomCode.trim() === '') {
+
+            return;
+        }
+
+        const roomRef = await database.ref(`rooms/${roomCode}`).get();
+
+        if (!roomRef.exists()) {
+            alert('Room not found.');
+            return;
+        }
+
+        if (roomRef.val().endedAt) {
+            alert('Room already closed.');
+            return;
+        }
+
+        history.push(`rooms/${roomCode}`);
+      
+    }
+
+  
     return (
         <div id="page-auth">
             <aside>
 
                 <img src={illustrationImg} alt="Illustration for Question and Answer" />
+                <div className="media">
                 <strong>Create Q&amp;A rooms in live</strong>
                 <p>Your audience questions replied in real-time</p>
+                </div>
 
             </aside>
 
@@ -53,10 +79,12 @@ export function Home() {
 
                 <div className="separator">or join an existing room</div>
 
-                <form action="">
+                <form onSubmit={handleJoinRoom}>
                     <input 
                     type="text" 
                     placeholder="Type room's code here"
+                    onChange={event => setRoomCode(event.target.value)}
+                    value={roomCode}
                     />
 
                     <Button type="submit">

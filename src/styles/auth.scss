@@ -2,10 +2,21 @@
     display: flex;
     align-items: stretch;
     height: 100vh;
+    
+
+    @media (max-width: 767px){
+
+        display: flex;
+        height: 100%;
+        
+        flex-direction: column-reverse;
+        
+
+    }
 
     aside {
         flex: 7;
-        background: #835afd;
+        background: #1A1E26;
         color: #fff;
 
         display: flex;
@@ -14,14 +25,79 @@
 
         padding: 120px 80px;
 
+        @media screen and (max-width: 767px){
+
+            margin-top: 120px;
+            display: flex;
+            flex-direction:row;
+            align-items:center;
+
+            padding: 50px 10px;
+            gap: 20px;
+
+
+
+        }
+
+        
         img {
+        
+
             max-width: 320px;
+
+            @media screen and (max-width: 767px){
+
+                
+                    
+                    width: 30%;
+                    align-self:baseline;
+                
+    
+    
+    
+            }
+
+           
+          
+        }
+
+        .media {
+
+            @media screen and (max-width: 767px){
+
+                strong {
+                    font-size: 14px ;
+
+                    line-height: 2px;
+                  
+        
+        
+                }
+        
+                p {
+                    font-size: 10px ;
+                    padding:0;
+                    line-height: 2px;
+
+
+         
+                }
+
+
+    
+    
+    
+            }
+
+        
         }
 
         strong {
             font: 700 36px 'Poppins', sans-serif;
             line-height: 42px;
             margin-top: 16px;
+
+           
 
 
         }
@@ -31,6 +107,9 @@
             line-height: 32px;
             margin-top: 16px;
             color: #f8f8f8;
+
+            
+ 
         }
 
     }
@@ -45,6 +124,17 @@
         align-items: center;
         justify-content:center;
 
+        @media screen and (max-width: 767px){
+
+           
+            margin-top: 100px;
+
+
+
+        }
+
+       
+
     }
 
     .main-content {
@@ -54,6 +144,12 @@
         max-width: 320px;
         align-items: stretch;
         text-align: center;
+
+        
+
+        a{
+            color: #593734;
+        }
 
         > img {
 
@@ -67,6 +163,8 @@
             font-family: 'Poppins', sans-serif;
 
         }
+
+       
         
 
         form {
@@ -94,9 +192,24 @@
             color: #737380;
             margin-top: 16px;
 
-            a{
-                color: #e559f9;
+            @media screen and (min-width: 360px) {
+
+              
+        
+                p {
+                    font-size: 10px ;
+
+                }
+
+         
+                
+
             }
+
+            a{
+                color: #593734;
+            }
+ 
 
         }
     }
@@ -106,7 +219,7 @@
         height: 50px;
         border-radius: 8px;
         font-weight: 500;
-        background: #ea4335;
+        background: #D95032;
         color: #fff;
 
         display: flex;
@@ -126,6 +239,7 @@
             filter:brightness(0.9)
         }
 
+       
 
     }
 
@@ -157,6 +271,7 @@
     }
 
     
+
 
   
 

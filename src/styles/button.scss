@@ -1,10 +1,9 @@
 .button {
 
-    margin-top: 64px;
     height: 50px;
     border-radius: 8px;
     font-weight: 500;
-    background: #835afd;
+    background: #593734;
     color: #fff;
 
     padding: 0 32px;
@@ -22,6 +21,12 @@
         margin-right: 8px;
     }
 
+    &.outlined {
+        background: #fff;
+        border: 1px solid #593734;
+        color: #593734;
+    }
+
     &:not(:disabled):hover {
         filter:brightness(0.9)
     }
@@ -31,6 +36,20 @@
         cursor: not-allowed;
     }
 
+
+    @media screen and (max-width: 767px){
+
+        
+    height:45px;
+    padding: 10px 24px;
+
+
+
+    }
+
+    
+
+  
 
 
 }
