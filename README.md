@@ -28,7 +28,7 @@ This project was designed with the following Tecnologies:
 Clone the project and access the directory.
 
 ```bash
-$ git clone https://github.com/rafaxtd/letmeask
+$ git clone https://github.com/rafaxtd/letmeask.git
 $ cd letmeask
 ```
 
